@@ -1,0 +1,27 @@
+<?php
+include "conecta.php";
+
+$id_select 	= $_GET['id']; 	//Recupera a variavel id para fazer o select
+$id_select1 = 'Entrada';	//Recupera a variavel tipo de entrada para fazer o select
+$id_select2 = 'Saida';		//Recupera a variavel tipo de entrada para fazer o select
+
+$es_date = date('d-m-Y - H:i');
+$sql1 = mysql_query("SELECT *, DATE_FORMAT(es_data, '%d/%m/%Y') as 'es_data' from entrada_saida where es_aluno_id=$id_select")OR DIE(mysql_error());
+$result = mysql_num_rows($sql1);
+
+if($result>=1) {
+	while($linha = mysql_fetch_array($sql1)) {
+		
+		$es_tipo			= $linha['es_tipo'];
+		$es_data			= $linha['es_data'];
+		$es_hora			= $linha['es_hora'];
+		
+echo"$es_tipo<br />
+$es_data - $es_hora<br />";
+
+	}
+}
+else {
+echo"0";
+}
+?>
